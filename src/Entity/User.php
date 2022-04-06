@@ -10,6 +10,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
+#[ORM\InheritanceType('JOINED')]
+#[ORM\DiscriminatorColumn('user_type', "string")]
+#[ORM\DiscriminatorMap(['Student', 'User', "Teacher"])]
 #[ApiResource]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -18,7 +21,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[ORM\Column(type: 'string', length: 180, unique: false)]
     private $email;
 
     #[ORM\Column(type: 'json')]
@@ -28,10 +31,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     #[ORM\Column(type: 'string', length: 100)]
-    private $Firstname;
+    private $firstname;
 
     #[ORM\Column(type: 'string', length: 100)]
-    private $Lastname;
+    private $lastname;
+
+    #[ORM\Column(type: 'string', length: 100, unique:true)]
+    private $username;
 
     public function getId(): ?int
     {
@@ -103,26 +109,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getFirstname(): ?string
+    public function getfirstname(): ?string
     {
-        return $this->Firstname;
+        return $this->firstname;
     }
 
-    public function setFirstname(string $Firstname): self
+    public function setfirstname(string $firstname): self
     {
-        $this->Firstname = $Firstname;
+        $this->firstname = $firstname;
 
         return $this;
     }
 
-    public function getLastname(): ?string
+    public function getlastname(): ?string
     {
-        return $this->Lastname;
+        return $this->lastname;
     }
 
-    public function setLastname(string $Lastname): self
+    public function setlastname(string $lastname): self
     {
-        $this->Lastname = $Lastname;
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
 
         return $this;
     }

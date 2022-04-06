@@ -28,7 +28,7 @@ class Student extends User
     }
 
 
-    public function getGender(): ?int
+    public function getGender(): ?string
     {
         return $this->gender;
     }

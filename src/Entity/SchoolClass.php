@@ -17,7 +17,7 @@ class SchoolClass
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 10)]
+    #[ORM\Column(type: 'string', length: 100)]
     private $level;
 
     #[ORM\OneToMany(mappedBy: 'schoolClass', targetEntity: Student::class, orphanRemoval: true)]
