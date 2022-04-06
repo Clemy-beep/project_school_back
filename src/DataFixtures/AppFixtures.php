@@ -26,7 +26,7 @@ class AppFixtures extends Fixture
 
         $secondYearTeacher = new Teacher();
         $hashpwd = $this->encoder->hashPassword($secondYearTeacher, $pwd);
-        $secondYearTeacher->setfirstname('Jean')->setlastname('Delenoix')->setEmail("delenoix_j@augustin.com")->setUsername("delenoix_j")->setPassword($hashpwd);
+        $secondYearTeacher->setRoles(['ROLE_TEACHER'])->setfirstname('Jean')->setlastname('Delenoix')->setEmail("delenoix_j@augustin.com")->setUsername("delenoix_j")->setPassword($hashpwd);
         $secondYearTeacher->setSalary(1300)->setSeniority(2)->setAge(35);
         $manager->persist($secondYearTeacher);
 
@@ -125,8 +125,9 @@ class AppFixtures extends Fixture
         
         $director = new User();
         $hashpwd = $this->encoder->hashPassword($director, $pwd);
-        $director->setfirstname('Jean-Jacques')->setlastname('Goldman')->setPassword($pwd)->setEmail('director@gsaugustin.com')->setPassword($hashpwd)->setUsername('goldman_jj');
-
+        $director->setRoles(['ROLE_ADMIN'])->setfirstname('Jean-Jacques')->setlastname('Goldman')->setPassword($pwd)->setEmail('director@gsaugustin.com')->setPassword($hashpwd)->setUsername('goldman_jj');
+        $manager->persist($director);
+        
         $historyCourse = new Course();
         $historyCourse->setName("Histoire");
         $manager->persist($historyCourse);
