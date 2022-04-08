@@ -7,24 +7,29 @@ use App\Repository\SchoolClassRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: SchoolClassRepository::class)]
-#[ApiResource]
+#[ApiResource (normalizationContext: ['groups' => ['schoolclass']])]
 class SchoolClass
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups("schoolclass")]
     private $id;
 
     #[ORM\Column(type: 'string', length: 100)]
+    #[Groups(["schoolclass", "student"])]
     private $level;
 
     #[ORM\OneToMany(mappedBy: 'schoolClass', targetEntity: Student::class, orphanRemoval: true)]
+    #[Groups("schoolclass")]
     private $students;
 
     #[ORM\OneToOne(inversedBy: 'schoolClass', targetEntity: Teacher::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(["schoolclass", "student"])]
     private $teacher;
 
     public function __construct()

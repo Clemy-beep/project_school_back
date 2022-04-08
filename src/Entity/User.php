@@ -7,6 +7,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -19,9 +20,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups("student")]
     private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: false)]
+    #[Groups(["student"])]
     private $email;
 
     #[ORM\Column(type: 'json')]
@@ -31,9 +34,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     #[ORM\Column(type: 'string', length: 100)]
+    #[Groups(["schoolclass", "student"])]
     private $firstname;
 
     #[ORM\Column(type: 'string', length: 100)]
+    #[Groups(["schoolclass", "student"])]
     private $lastname;
 
     #[ORM\Column(type: 'string', length: 100, unique:true)]

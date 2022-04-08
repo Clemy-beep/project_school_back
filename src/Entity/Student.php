@@ -7,19 +7,23 @@ use App\Repository\StudentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: StudentRepository::class)]
-#[ApiResource]
+#[ApiResource (normalizationContext: ['groups' => ['student']])]
 class Student extends User
 {
     #[ORM\Column(type: 'string')]
+    #[Groups("student")]
     private $gender;
 
     #[ORM\ManyToOne(targetEntity: SchoolClass::class, inversedBy: 'students')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups("student")]
     private $schoolClass;
 
     #[ORM\OneToMany(mappedBy: 'student', targetEntity: Grade::class, orphanRemoval: true)]
+    #[Groups("student")]
     private $grades;
 
     public function __construct()
