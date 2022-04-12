@@ -26,6 +26,10 @@ class Student extends User
     #[Groups("student")]
     private $grades;
 
+    #[ORM\Column(type: 'boolean')]
+    #[Groups(["student", "student_write"])]
+    private $isExcluded = false;
+
     public function __construct()
     {
         $this->grades = new ArrayCollection();
@@ -82,6 +86,18 @@ class Student extends User
                 $grade->setStudent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsExcluded(): ?bool
+    {
+        return $this->isExcluded;
+    }
+
+    public function setIsExcluded(bool $isExcluded): self
+    {
+        $this->isExcluded = $isExcluded;
 
         return $this;
     }
