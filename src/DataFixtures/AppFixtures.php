@@ -30,8 +30,43 @@ class AppFixtures extends Fixture
         $secondYearTeacher->setSalary(1300)->setSeniority(2)->setAge(35);
         $manager->persist($secondYearTeacher);
 
+        $thirdYearTeacher = new Teacher();
+        $hashpwd = $this->encoder->hashPassword($secondYearTeacher, $pwd);
+        $thirdYearTeacher->setRoles(['ROLE_TEACHER'])->setfirstname('Justine')->setlastname('Bekritch')->setEmail("bekritch_j@augustin.com")->setUsername("bekritch_j")->setPassword($hashpwd);
+        $thirdYearTeacher->setSalary(1200)->setSeniority(1)->setAge(28);
+        $manager->persist($thirdYearTeacher);   
+        
+        $fourthYearTeacher = new Teacher();
+        $hashpwd = $this->encoder->hashPassword($secondYearTeacher, $pwd);
+        $fourthYearTeacher->setRoles(['ROLE_TEACHER'])->setfirstname('Greta')->setlastname('Garbo')->setEmail("garbo_g@augustin.com")->setUsername("garbo_g")->setPassword($hashpwd);
+        $fourthYearTeacher->setSalary(1750)->setSeniority(50)->setAge(54);
+        $manager->persist($fourthYearTeacher);   
+        
+        $fifthYearTeacher = new Teacher();
+        $hashpwd = $this->encoder->hashPassword($secondYearTeacher, $pwd);
+        $fifthYearTeacher->setRoles(['ROLE_TEACHER'])->setfirstname('Georges')->setlastname('Ghelain')->setEmail("ghelain_g@augustin.com")->setUsername("ghelain_g")->setPassword($hashpwd);
+        $fifthYearTeacher->setSalary(1800)->setSeniority(6)->setAge(47);
+        $manager->persist($fifthYearTeacher);   
+        
+        $sixthYearTeacher = new Teacher();
+        $hashpwd = $this->encoder->hashPassword($secondYearTeacher, $pwd);
+        $sixthYearTeacher->setRoles(['ROLE_TEACHER'])->setfirstname('Gisèle')->setlastname('Charbonnier')->setEmail("charbonnier_g@augustin.com")->setUsername("charbonnier_g")->setPassword($hashpwd);
+        $sixthYearTeacher->setSalary(2000)->setSeniority(35)->setAge(65);
+        $manager->persist($sixthYearTeacher);
+
         $secondYearClass = new SchoolClass();
-        $secondYearClass->setTeacher($secondYearTeacher)->setLevel("cours preparatoire");
+        $secondYearClass->setTeacher($secondYearTeacher)->setLevel("Cours Préparatoire");
+
+        $thirdYearClass = new SchoolClass();
+        $thirdYearClass->setTeacher($thirdYearTeacher)->setLevel("Cours Elémentaire 1");
+
+        $fourthYearClass = new SchoolClass();
+        $fourthYearClass->setTeacher($fourthYearTeacher)->setLevel("Cours Elémentaire 2");
+        $fifthYearClass = new SchoolClass();      
+        $fifthYearClass->setTeacher($fifthYearTeacher)->setLevel("Cours Moyen 1");
+        $sixthYearClass = new SchoolClass();
+        $sixthYearClass->setTeacher($sixthYearTeacher)->setLevel("Cours Moyen 2");
+
 
         $secondYearStudent1 = new Student();
         $hashpwd = $this->encoder->hashPassword($secondYearStudent1, $pwd);
@@ -149,6 +184,10 @@ class AppFixtures extends Fixture
         $manager->persist($scienceCourse);
 
         $manager->persist($secondYearClass);
+        $manager->persist($thirdYearClass);
+        $manager->persist($fourthYearClass);
+        $manager->persist($fifthYearClass);
+        $manager->persist($sixthYearClass);
         $manager->flush();
     }
 }

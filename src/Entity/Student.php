@@ -10,16 +10,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: StudentRepository::class)]
-#[ApiResource (normalizationContext: ['groups' => ['student']])]
+#[ApiResource (normalizationContext: ['groups' => ['student']], denormalizationContext: ["groups" => ['student_write']])]
 class Student extends User
 {
     #[ORM\Column(type: 'string')]
-    #[Groups("student")]
+    #[Groups(["student", "student_write"])]
     private $gender;
 
     #[ORM\ManyToOne(targetEntity: SchoolClass::class, inversedBy: 'students')]
-    #[ORM\JoinColumn(nullable: false)]
-    #[Groups("student")]
+    #[ORM\JoinColumn(nullable: true)]
+    #[Groups(["student", "student_write"])]
     private $schoolClass;
 
     #[ORM\OneToMany(mappedBy: 'student', targetEntity: Grade::class, orphanRemoval: true)]

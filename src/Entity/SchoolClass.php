@@ -27,8 +27,8 @@ class SchoolClass
     #[Groups("schoolclass")]
     private $students;
 
-    #[ORM\OneToOne(inversedBy: 'schoolClass', targetEntity: Teacher::class, cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\OneToOne(inversedBy: 'schoolClass', targetEntity: Teacher::class, cascade: ['persist', 'persist'])]
+    #[ORM\JoinColumn(nullable: true)]
     #[Groups(["schoolclass", "student"])]
     private $teacher;
 

@@ -24,24 +24,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: false)]
-    #[Groups(["student"])]
+    #[Groups(["student", "student_write"])]
     private $email;
 
     #[ORM\Column(type: 'json')]
     private $roles = [];
 
     #[ORM\Column(type: 'string')]
+    #[Groups(["student_write"])]
     private $password;
 
     #[ORM\Column(type: 'string', length: 100)]
-    #[Groups(["schoolclass", "student"])]
+    #[Groups(["schoolclass", "student", "student_write"])]
     private $firstname;
 
     #[ORM\Column(type: 'string', length: 100)]
-    #[Groups(["schoolclass", "student"])]
+    #[Groups(["schoolclass", "student", "student_write"])]
     private $lastname;
 
     #[ORM\Column(type: 'string', length: 100, unique:true)]
+    #[Groups(["student_write"])]
     private $username;
 
     public function getId(): ?int
