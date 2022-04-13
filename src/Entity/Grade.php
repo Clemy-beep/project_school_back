@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\GradeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: GradeRepository::class)]
 #[ApiResource]
@@ -16,6 +17,7 @@ class Grade
     private $id;
 
     #[ORM\Column(type: 'float')]
+    #[Groups(["student"])]
     private $grade;
 
     #[ORM\ManyToOne(targetEntity: Student::class, inversedBy: 'grades')]
@@ -24,6 +26,7 @@ class Grade
 
     #[ORM\ManyToOne(targetEntity: Course::class, inversedBy: 'grades')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(["student"])]
     private $course;
 
     public function getId(): ?int
