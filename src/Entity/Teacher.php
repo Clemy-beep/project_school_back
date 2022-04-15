@@ -5,21 +5,26 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TeacherRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TeacherRepository::class)]
-#[ApiResource ]
+#[ApiResource (normalizationContext: ['groups' => ['teacher']], denormalizationContext: ["groups" => ['teacher_write']])]
 class Teacher extends User
 {
     #[ORM\Column(type: 'integer')]
+    #[Groups(["teacher", "teacher_write"])]
     private $salary;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups(["teacher", "teacher_write"])]
     private $seniority;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups(["teacher", "teacher_write"])]
     private $age;
 
     #[ORM\OneToOne(mappedBy: 'teacher', targetEntity: SchoolClass::class, cascade: ['persist', 'remove'])]
+    #[Groups(["teacher"])]
     private $schoolClass;
 
     /**

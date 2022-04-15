@@ -20,30 +20,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Groups("student")]
+    #[Groups(["student", "teacher"])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: false)]
-    #[Groups(["student", "student_write"])]
+    #[Groups(["student", "student_write", "teacher", "teacher_write"])]
     private $email;
 
     #[ORM\Column(type: 'json')]
     private $roles = [];
 
     #[ORM\Column(type: 'string')]
-    #[Groups(["student_write"])]
+    #[Groups(["student_write", "teacher_write"])]
     private $password;
 
     #[ORM\Column(type: 'string', length: 100)]
-    #[Groups(["schoolclass", "student", "student_write"])]
+    #[Groups(["schoolclass", "student", "student_write", "teacher", "teacher_write"])]
     private $firstname;
 
     #[ORM\Column(type: 'string', length: 100)]
-    #[Groups(["schoolclass", "student", "student_write"])]
+    #[Groups(["schoolclass", "student", "student_write", "teacher", "teacher_write"])]
     private $lastname;
 
     #[ORM\Column(type: 'string', length: 100, unique:true)]
-    #[Groups(["student_write"])]
+    #[Groups(["student_write", "teacher_write"])]
     private $username;
 
     public function getId(): ?int

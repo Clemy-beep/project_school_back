@@ -24,7 +24,7 @@ class SchoolClass
     private $level;
 
     #[ORM\OneToMany(mappedBy: 'schoolClass', targetEntity: Student::class, orphanRemoval: true)]
-    #[Groups("schoolclass")]
+    #[Groups(["schoolclass", "teacher"])]
     private $students;
 
     #[ORM\OneToOne(inversedBy: 'schoolClass', targetEntity: Teacher::class, cascade: ['persist', 'persist'])]

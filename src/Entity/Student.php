@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Student extends User
 {
     #[ORM\Column(type: 'string')]
-    #[Groups(["student", "student_write"])]
+    #[Groups(["student", "student_write", "teacher"])]
     private $gender;
 
     #[ORM\ManyToOne(targetEntity: SchoolClass::class, inversedBy: 'students')]
